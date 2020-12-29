@@ -1,0 +1,22 @@
+{
+  "database": {
+    "type": "sqlite3",
+    "pg": {
+        "host": "127.0.0.1",
+        "port": 5432,
+        "user": "mrx",
+        "password": "1234",
+        "database": "tacro"
+    },
+    "mysql": {
+        "host": "damoa.cz1wakucqtzr.ap-northeast-2.rds.amazonaws.com",
+        "port": 3306,
+        "user": "admin",
+        "password": "Mak1naR0cks!",
+        "database": "damoa"
+    },
+    "sqlite3": {
+        "filename":"./mrx.db"
+    }
+  }
+}

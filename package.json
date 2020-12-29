@@ -1,0 +1,24 @@
+{
+  "name": "richer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "commander": "^6.2.1",
+    "encoding-japanese": "^1.0.30",
+    "epipebomb": "^1.0.0",
+    "fs-path": "0.0.25",
+    "iconv-lite": "^0.6.2",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "pidusage": "^2.0.21",
+    "uuidv4": "^6.2.6"
+  }
+}
