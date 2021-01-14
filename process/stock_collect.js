@@ -19,6 +19,7 @@ collector.getSise(cmd.code, 400).then((d) => {
   //   downward:[]
   // };
   var result = [];
+  console.log(d);
   segmentation([...d], result);
   var save_data = {
     meta: {

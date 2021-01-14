@@ -2,6 +2,7 @@ const _ = require('lodash');
 const cheerio = require('cheerio');
 const axios = require('axios');
 const iconv = require('iconv-lite')
+const request = require('request')
 const moment = require('moment')
 module.exports = function() {
     var code_list = [];
@@ -13,39 +14,44 @@ module.exports = function() {
         return new Promise((resolve, reject) => {
             async function page_req(num,code,rows) {
                 try {
-                    let response = await axios.get(url.replace('{code}',code).replace('{page}',num));
-                    var $ = cheerio.load(response.data);
-                    if(page_num === 1) {
-                        if($('.pgRR a').length > 0) {
-                            var href = $('.pgRR a')[0].attribs.href;
-                            page_num = parseInt(href.substring(href.search("page=") + 5, href.length));
-                            page_num = page_num > req_page ? req_page : page_num;
+                    var real_url = url.replace('{code}',code).replace('{page}',num)
+                    request(real_url,function(err,res,body) {
+                        if(!err && res.statusCode == 200)
+                            var $ = cheerio.load(body);
+                            if(page_num === 1) {
+                                if($('.pgRR a').length > 0) {
+                                    var href = $('.pgRR a')[0].attribs.href;
+                                    page_num = parseInt(href.substring(href.search("page=") + 5, href.length));
+                                    page_num = page_num > req_page ? req_page : page_num;
+                                }
+                            }
+                            var nodes = $('.type2 tbody tr td span');
+                            var row = {};
+                            var header = ["date", "close", "gap", "open", "high", "low", "volume"]
+                            
+                            for(var index = 0; index < nodes.length; index++) {
+                                var row_num = parseInt(index/7);
+                                if(page_num === num && row_num > (remain_row - 1)) {
+                                    break;
+                                }
+                                // 날짜, 종가, 전일비, 시가, 고가, 저가, 거래량
+                                var i = index%7;
+                                var node = nodes[index];
+                                row[header[i]] = header[i] == 'date' ? new Date(node.firstChild.data.replace(/\n/gi,"").replace(/\t/gi,"").replace(/,/gi,"")).getTime() : parseInt(node.firstChild.data.replace(/\n/gi,"").replace(/\t/gi,"").replace(/,/gi,""));
+                                if(i === 6) {
+                                    rows.unshift(row);
+                                    row = {};
+                                }    
+                            }
+                            
+                            num++
+                            if(num<page_num) {
+                                page_req(num,code,rows);
+                            } else {
+                                resolve(rows)
+                            }
                         }
-                    }
-                    var nodes = $('.type2 tbody tr td span');
-                    var row = {};
-                    var header = ["date", "close", "gap", "open", "high", "low", "volume"]
-                    for(var index = 0; index < nodes.length; index++) {
-                        var row_num = parseInt(index/7);
-                        if(page_num === num && row_num > (remain_row - 1)) {
-                            break;
-                        }
-                        // 날짜, 종가, 전일비, 시가, 고가, 저가, 거래량
-                        var i = index%7;
-                        var node = nodes[index];
-                        row[header[i]] = header[i] == 'date' ? new Date(node.firstChild.data.replace(/\n/gi,"").replace(/\t/gi,"").replace(/,/gi,"")).getTime() : parseInt(node.firstChild.data.replace(/\n/gi,"").replace(/\t/gi,"").replace(/,/gi,""));
-                        if(i === 6) {
-                            rows.unshift(row);
-                            row = {};
-                        }    
-                    }
-                    
-                    num++
-                    if(num<page_num) {
-                        page_req(num,code,rows);
-                    } else {
-                        resolve(rows)
-                    }
+                    );
                 } catch (err) {
                     page_req(1,code,[]);
                 }

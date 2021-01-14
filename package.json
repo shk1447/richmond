@@ -15,10 +15,13 @@
     "encoding-japanese": "^1.0.30",
     "epipebomb": "^1.0.0",
     "fs-path": "0.0.25",
+    "http": "0.0.1-security",
     "iconv-lite": "^0.6.2",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
     "pidusage": "^2.0.21",
+    "request": "^2.88.2",
+    "requests": "^0.3.0",
     "uuidv4": "^6.2.6"
   }
 }
