@@ -31,7 +31,7 @@ module.exports = function(options) {
       pool.forEach(function(proc) {
         this.prepare(proc.spawnargs, proc.process_opts);
         proc.kill();
-      })
+      }.bind(this))
       console.log('remain...pool : ',pool.length)
     }
   }.bind(this),0)

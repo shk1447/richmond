@@ -7,6 +7,13 @@ const collector = require('./process/collector.js');
 
 const ProcessPool = require('./runtime/ProcessPool.js');
 
+const db = require('./db')
+
+db().then(function(d) {
+    console.log(d);
+});
+
+
 var pool = new ProcessPool({processLimit:8});
 
 collector.getStockList().then((d) => {
@@ -23,6 +30,9 @@ collector.getStockList().then((d) => {
     })
 })
 
+
 // setInterval(function() {
 //     console.log(pool.remain() + ' process');
 // },1000)
+
+

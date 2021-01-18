@@ -22,6 +22,8 @@
     "pidusage": "^2.0.21",
     "request": "^2.88.2",
     "requests": "^0.3.0",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.1",
     "uuidv4": "^6.2.6"
   }
 }
