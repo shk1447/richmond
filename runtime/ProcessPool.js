@@ -28,10 +28,12 @@ module.exports = function(options) {
     }
 
     if(procs.length == 0 && pool.length > 0) {
-      pool.forEach(function(proc) {
-        this.prepare(proc.spawnargs, proc.process_opts);
+      while(pool.length) {
+        var proc = pool.pop();
         proc.kill();
-      }.bind(this))
+        this.prepare(proc.spawnargs, proc.process_opts);
+      }
+      
       console.log('remain...pool : ',pool.length)
     }
   }.bind(this),0)

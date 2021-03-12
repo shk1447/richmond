@@ -13,7 +13,6 @@ const path = require('path');
 
 const fsPath = require('fs-path');
 const cmd = require('commander');
-const collector = require('./collector.js')
 
 const moment = require('moment');
 const {
@@ -28,6 +27,59 @@ cmd.option('-c, --code [code]', 'set stock code', '')
 var t0 = performance.now()
 var d = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/' + cmd.code +'.json')));
 
+/* 
+for(var i = 5; i >= 0; i--) {
+  var date = moment();
+  var result = {
+    name:cmd.stock_name,
+    total:cmd.stock_total,
+    curr_trend:null,
+    prev_point:[],
+    curr_point:[]
+  };
+  var test = date.add('days', -i);
+  if(test.day() == 6 || test.day() == 0) {
+    continue;
+  }
+  
+
+  segmentation([...d.filter(function(d) { return d.date <= (test.unix()*1000)})], result);
+
+  var curr_avg_volume = 0;
+  var curr_avg_degree = 0;
+  var prev_avg_volume = 0;
+  var prev_avg_degree = 0;
+
+  result.curr_point.forEach(function(d) {
+    curr_avg_volume += d.avg_volume;
+    curr_avg_degree += d.degree;
+  })
+  curr_avg_volume = curr_avg_volume / result.curr_point.length;
+  curr_avg_degree = curr_avg_degree / result.curr_point.length;
+
+  result.prev_point.forEach(function(d) {
+    prev_avg_volume += d.avg_volume;
+    prev_avg_degree += d.degree;
+  })
+  prev_avg_volume = prev_avg_volume / result.prev_point.length;
+  prev_avg_degree = prev_avg_degree / result.prev_point.length;
+
+  result['curr_avg_volume'] = curr_avg_volume;
+  result['curr_avg_degree'] = curr_avg_degree;
+  result['prev_avg_volume'] = prev_avg_volume;
+  result['prev_avg_degree'] = prev_avg_degree;
+  
+  // console.log(result);
+  if(result.curr_trend == 'downward') {
+    console.log(test.format('YYYY-MM-DD'), '(', result.curr_trend, ') : ', `${result.prev_avg_volume}, ${result.prev_avg_degree}`, `${result.curr_avg_volume}, ${result.curr_avg_degree}` )
+  } else {
+    console.log(test.format('YYYY-MM-DD'), '(', result.curr_trend, ') : ', `${result.curr_avg_volume}, ${result.curr_avg_degree}`, `${result.prev_avg_volume}, ${result.prev_avg_degree}` );
+  }
+}
+*/
+
+
+
 var result = {
   name:cmd.stock_name,
   total:cmd.stock_total,
@@ -35,14 +87,38 @@ var result = {
   prev_point:[],
   curr_point:[]
 };
-//d = d.filter(function(d) { return d.date <= new Date('2020-09-10').getTime()});
+segmentation([...d.filter(function(d) { return d.date <= (moment().add('days', '-4').unix()*1000)})], result);
 
-segmentation([...d], result);
+if(result.curr_trend == 'upward') {
+  var curr_avg_volume = 0;
+  var curr_avg_degree = 0;
+  var prev_avg_volume = 0;
+  var prev_avg_degree = 0;
 
-//console.log(result);
-if(result.curr_trend == 'upward' && result.curr_point.length > 0) {
-  fsPath.writeFileSync(path.resolve(__dirname, './analysis/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(result,null,2))
+  result.curr_point.forEach(function(d) {
+    curr_avg_volume += d.avg_volume;
+    curr_avg_degree += d.degree;
+  })
+  curr_avg_volume = curr_avg_volume / result.curr_point.length;
+  curr_avg_degree = curr_avg_degree / result.curr_point.length;
+
+  result.prev_point.forEach(function(d) {
+    prev_avg_volume += d.avg_volume;
+    prev_avg_degree += d.degree;
+  })
+  prev_avg_volume = prev_avg_volume / result.prev_point.length;
+  prev_avg_degree = prev_avg_degree / result.prev_point.length;
+
+  result['curr_avg_volume'] = curr_avg_volume;
+  result['curr_avg_degree'] = curr_avg_degree;
+  result['prev_avg_volume'] = prev_avg_volume;
+  result['prev_avg_degree'] = prev_avg_degree;
+  if(isNaN(curr_avg_volume) && isNaN(prev_avg_volume)) {
+    fsPath.writeFileSync(path.resolve(__dirname, './analysis/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(result,null,2))
+  }
 }
+
+
 var t1 = performance.now();
 
 console.log(t1 - t0);
@@ -99,7 +175,6 @@ function segmentation(data, result) {
     const trend_type = max.date > min.date ? 'upward' : 'downward';
     var min_idx = data.indexOf(min);
     var max_idx = data.indexOf(max);
-    console.log(trend_type)
     switch(trend_type) {
       case 'upward' :
         if(result.curr_trend == 'downward') {
