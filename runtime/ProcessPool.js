@@ -23,18 +23,17 @@ module.exports = function(options) {
       child.on('exit', function(code) {
           pool.splice(pool.indexOf(child), 1);
           child.kill();
-      })
+          if(procs.length == 0 && pool.length > 0) {
+            while(pool.length) {
+              var proc = pool.pop();
+              proc.kill();
+              this.prepare(proc.spawnargs, proc.process_opts);
+            }
+            
+            console.log('remain...pool : ',pool.length)
+          }
+      }.bind(this))
       console.log('remain process : ', procs.length);
-    }
-
-    if(procs.length == 0 && pool.length > 0) {
-      while(pool.length) {
-        var proc = pool.pop();
-        proc.kill();
-        this.prepare(proc.spawnargs, proc.process_opts);
-      }
-      
-      console.log('remain...pool : ',pool.length)
     }
   }.bind(this),0)
 }
