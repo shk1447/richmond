@@ -28,6 +28,9 @@ var t0 = performance.now()
 var d = JSON.parse(fs.readFileSync(path.resolve(__dirname, './data/' + cmd.code +'.json')));
 
 var trend_result = {
+  date:'',
+  volume_per:0,
+  type:[],
   upward:[],
   downward:[]
 }
@@ -42,20 +45,20 @@ var down_avg_degree = 0;
 var prev_price = 0;
 var curr_price = d[d.length-1].close;
 
-for(var i = 15; i >= 8; i--) {
+for(var i = 28; i >= 14; i--) {
   var date = moment();
   var result = {
     name:cmd.stock_name,
     total:cmd.stock_total,
     curr_trend:null,
     prev_point:[],
-    curr_point:[]
+    curr_point:[],
   };
   var test = date.add('days', -i);
   if(test.day() == 6 || test.day() == 0) {
     continue;
   }
-  console.log(test);
+  
   var valid_arr = [...d.filter(function(d) { return d.date <= (test.unix()*1000)})];
   segmentation(valid_arr, result);
   prev_price = valid_arr[valid_arr.length - 1].close
@@ -111,6 +114,8 @@ for(var i = 15; i >= 8; i--) {
       up_cnt++;
     }
   })
+  trend_result.type.push(result.curr_trend)
+  trend_result.date = test.format('YYYY-MM-DD');
 }
 up_avg_volume = up_avg_volume / up_cnt;
 up_avg_degree = up_avg_degree / up_cnt;
@@ -120,14 +125,16 @@ down_avg_degree = down_avg_degree / down_cnt;
 trend_result.upward.sort((a,b) => moment(a.date)-moment(b.date));
 trend_result.downward.sort((a,b) => moment(a.date)-moment(b.date));
 
+trend_result.volume_per = up_avg_volume/parseFloat(cmd.stock_total) *100;
+
 if(up_avg_volume > down_avg_volume) {
-  if(trend_result.upward.length > 0 && trend_result.downward.length > 0) {
+  if(trend_result.upward.length >= trend_result.downward.length) {
     if(trend_result.upward[trend_result.upward.length - 1].degree > trend_result.downward[trend_result.downward.length - 1].degree) {
       if(trend_result.upward[trend_result.upward.length - 1].avg_volume > trend_result.downward[trend_result.downward.length - 1].avg_volume) {
         if(curr_price > prev_price) {
-          fsPath.writeFileSync(path.resolve(__dirname, './analysis_success/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
+          fsPath.writeFileSync(path.resolve(__dirname, './analysis_success/'+ Math.floor(curr_price / prev_price * 100) +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
         } else {
-          fsPath.writeFileSync(path.resolve(__dirname, './analysis_fail/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
+          fsPath.writeFileSync(path.resolve(__dirname, './analysis_fail/'+Math.floor(curr_price / prev_price * 100) +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
         }
       }
     }
