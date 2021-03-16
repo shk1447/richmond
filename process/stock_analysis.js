@@ -39,7 +39,10 @@ var down_cnt = 0;
 var down_avg_volume = 0;
 var down_avg_degree = 0;
 
-for(var i = 23; i >= 3; i--) {
+var prev_price = 0;
+var curr_price = d[d.length-1].close;
+
+for(var i = 15; i >= 8; i--) {
   var date = moment();
   var result = {
     name:cmd.stock_name,
@@ -53,7 +56,9 @@ for(var i = 23; i >= 3; i--) {
     continue;
   }
   console.log(test);
-  segmentation([...d.filter(function(d) { return d.date <= (test.unix()*1000)})], result);
+  var valid_arr = [...d.filter(function(d) { return d.date <= (test.unix()*1000)})];
+  segmentation(valid_arr, result);
+  prev_price = valid_arr[valid_arr.length - 1].close
 
   result.curr_point.forEach(function(d) {
     if(result.curr_trend == 'downward') {
@@ -115,12 +120,14 @@ down_avg_degree = down_avg_degree / down_cnt;
 trend_result.upward.sort((a,b) => moment(a.date)-moment(b.date));
 trend_result.downward.sort((a,b) => moment(a.date)-moment(b.date));
 
-if(up_avg_degree > down_avg_degree && up_avg_volume > down_avg_volume) {
+if(up_avg_volume > down_avg_volume) {
   if(trend_result.upward.length > 0 && trend_result.downward.length > 0) {
     if(trend_result.upward[trend_result.upward.length - 1].degree > trend_result.downward[trend_result.downward.length - 1].degree) {
       if(trend_result.upward[trend_result.upward.length - 1].avg_volume > trend_result.downward[trend_result.downward.length - 1].avg_volume) {
-        if(trend_result.upward.length >= trend_result.downward.length) {
-          fsPath.writeFileSync(path.resolve(__dirname, './analysis02/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
+        if(curr_price > prev_price) {
+          fsPath.writeFileSync(path.resolve(__dirname, './analysis_success/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
+        } else {
+          fsPath.writeFileSync(path.resolve(__dirname, './analysis_fail/' +cmd.stock_name+'_' +cmd.code +'.json'), JSON.stringify(trend_result,null,2))
         }
       }
     }
