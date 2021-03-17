@@ -7,9 +7,11 @@ const collector = require('./collector.js')
 cmd.option('-c, --code [code]', 'set stock code', '')
   .option('-t, --stock_total [stock_total]', 'set stock total', '')
   .option('-n, --stock_name [stock_name]', 'set stock name', '')
+  .option('-d, --days [days]', 'set days', '1')
   .parse(process.argv)
 
-collector.getSise(cmd.code, 1).then((d) => {
+const days = parseInt(cmd.days);
+collector.getSise(cmd.code, days).then((d) => {
   var collect_path = path.resolve(__dirname, './data/' +cmd.code +'.json');
   var exists = fs.existsSync(collect_path)
   if(exists) {
