@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "collect": "echo \"Error: no test specified\" && exit 1"
+    "collect": "node ./index.js --script collect --days 5",
+    "analysis": "node ./index.js --script analysis --days 10"
   },
   "author": "",
   "license": "ISC",

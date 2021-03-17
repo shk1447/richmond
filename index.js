@@ -1,3 +1,8 @@
+const cmd = require('commander');
+cmd.option('-a, --script [script]', 'set script name', 'collect')
+    .option('-d, --days [days]', 'set days', '0')
+    .parse(process.argv)
+
 const os = require('os');
 const path = require('path');
 const runtime = require('./runtime');
@@ -10,18 +15,18 @@ const ProcessPool = require('./runtime/ProcessPool.js');
 
 const db = require('./db')
 
-db().then(function(d) {
+db().then(function (d) {
     console.log(d);
 });
 
 const cpus = os.cpus();
 
-var pool = new ProcessPool({processLimit:cpus.length});
+var pool = new ProcessPool({ processLimit: cpus.length });
 
 collector.getStockList().then((d) => {
     d.forEach((item) => {
-        var process_args = ['./stock_analysis.js', '--code', item.stock_code, '--stock_total', item.stock_total, '--stock_name', item.stock_name];
-        var process_opts = {cwd :path.resolve(__dirname, './process'), detached:true, stdio:'ignore'};
+        var process_args = ['./stock_' + cmd.script + '.js', '--code', item.stock_code, '--stock_total', item.stock_total, '--stock_name', item.stock_name, '--days', cmd.days];
+        var process_opts = { cwd: path.resolve(__dirname, './process'), detached: true, stdio: 'ignore' };
         pool.prepare(process_args, process_opts)
     })
 })
