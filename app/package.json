@@ -1,0 +1,26 @@
+{
+  "name": "lng-predictor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "npm install && electron .",
+    "build": "npm install && electron-packager --icon=./favicon.ico --ignore=^/client --ignore=^/mlprocess --overwrite --all ."
+  },
+  "devDependencies": {
+    "electron-packager": "^14.1.1",
+    "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "core-js": "^3.8.1",
+    "exceljs": "^4.2.0",
+    "fs": "0.0.1-security",
+    "moment": "^2.29.1",
+    "path": "^0.12.7",
+    "regenerator-runtime": "^0.13.7",
+    "url": "^0.11.0",
+    "xlsx": "^0.16.9"
+  },
+  "author": "seokhwan.kim",
+  "license": "ISC"
+}

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "collect": "node ./index.js --script collect --days 5",
-    "analysis": "node ./index.js --script analysis --days 10"
+    "collect": "node ./index.js --script collect --days 3",
+    "analysis": "node ./index.js --script analysis --days 12"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "requests": "^0.3.0",
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.1",
-    "uuidv4": "^6.2.6"
+    "uuidv4": "^6.2.6",
+    "xlsx": "^0.16.9"
   }
 }

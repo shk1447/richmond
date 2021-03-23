@@ -1,0 +1,15 @@
+# Output
+dist/
+lng-predictor-*/
+
+# Dependency
+node_modules/
+
+# windows package output
+*.msi
+*.wixobj
+*.wixpdb
+*.wxs
+
+# Visual Studio Code
+.vscode/
