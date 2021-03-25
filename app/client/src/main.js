@@ -39,6 +39,10 @@ import VueFlatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 Vue.use(VueFlatPickr);
 
+import vgl from 'vue-golden-layout'
+Vue.use(vgl);
+import 'golden-layout/src/css/goldenlayout-dark-theme.css'
+
 // register component to use
 
 // 메인 컴포넌트 및 라우터 적용 코드
@@ -53,61 +57,61 @@ Vue.prototype.$common = common;
 
 import views from "./views.js";
 
-views.common.forEach(function(v, k) {
+views.common.forEach(function (v, k) {
   Vue.component(v.compName, v.compPath.default);
 })
 
-views.windows.forEach(function(v, k) {
+views.windows.forEach(function (v, k) {
   Vue.component(v.compName + '-window', v.compPath.default);
 });
 
-views.panels.forEach(function(v,k) {
+views.panels.forEach(function (v, k) {
   Vue.component(v.compName + '-panel', v.compPath.default);
 })
 
-views.dialogs.forEach(function(v,k) {
+views.dialogs.forEach(function (v, k) {
   Vue.component(v.compName + '-dialog', v.compPath.default);
 })
 
-views.viewers.forEach(function(v,k) {
+views.viewers.forEach(function (v, k) {
   Vue.component(v.compName + '-viewer', v.compPath.default);
 })
 
 Vue.mixin({
   data() {
     return {
-      mrx_store:common.store.all
+      mrx_store: common.store.all
     }
   },
   methods: {
     // 컴포넌트가 관심을 가지는 이벤트 리스트 정의
-    notifications: function() {
+    notifications: function () {
       /*
             ex] 아래와 같이 사용
             [{path:'app.loading', callback : function() { }}]
             */
       return [];
     },
-    visibleLoading: function(uuid, target) {
+    visibleLoading: function (uuid, target) {
       var options = {
-        uuid:uuid,
+        uuid: uuid,
         show: true
       };
-      if(target) options['target'] = target
+      if (target) options['target'] = target
       common.store.setProperty("app.loading", options);
     },
-    hiddenLoading: function(uuid, target) {
+    hiddenLoading: function (uuid, target) {
       var options = {
-        uuid:uuid,
+        uuid: uuid,
         show: false
       };
-      if(target) options['target'] = target
+      if (target) options['target'] = target
       common.store.setProperty("app.loading", options);
     }
   },
-  created: function() {
+  created: function () {
     var handlers = this.notifications();
-    handlers.forEach(function(handle, k) {
+    handlers.forEach(function (handle, k) {
       common.store.onProperty(handle.path, handle.callback);
     });
     if (this.$route && Object.keys(this.$route.query).length > 0) {
@@ -115,9 +119,9 @@ Vue.mixin({
       this.$router.replace({ query: null });
     }
   },
-  destroyed: function() {
+  destroyed: function () {
     var handlers = this.notifications();
-    handlers.forEach(function(handle, k) {
+    handlers.forEach(function (handle, k) {
       common.store.offProperty(handle.path, handle.callback);
     });
   },

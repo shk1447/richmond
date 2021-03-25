@@ -21,12 +21,46 @@
       <div class="body-area">
         <!-- Content Area -->
         <v-content id="bottom_content">
-          <div style="width:100%;height:50%; background: rgb(37, 37, 37);border-bottom: 1px solid rgb(51, 51, 51);">
-            <chart-viewer />
+          <golden-layout class="hscreen">
+            <gl-col>
+              <gl-row>
+                <gl-component :closable="false" :reorderEnabled="false" title="component1">
+                  <data-viewer />
+                </gl-component>
+                <gl-component title="component2">
+                  <data-viewer />
+                </gl-component>
+              </gl-row>
+            </gl-col>
+          </golden-layout>
+          <golden-layout class="hscreen">
+            <gl-col>
+              <gl-stack>
+                <gl-component title="component3">
+                  <h1>Component 2</h1>
+                </gl-component>
+                <gl-component title="component4">
+                  <h1>Component 3</h1>
+                </gl-component>
+              </gl-stack>
+            </gl-col>
+          </golden-layout>
+          <!-- <div style="width:100%;height:40%; background: rgb(37, 37, 37);border-bottom: 1px solid rgb(51, 51, 51);">
+            <v-carousel v-if="predict_list.length > 0" height="100%" hide-delimiter-background show-arrows-on-hover @change="onChangePredict">
+              <v-carousel-item
+                v-for="(item,i) in predict_list"
+                :key="i"
+                reverse-transition="fade-transition"
+                transition="fade-transition"
+              >
+                <predict-viewer :title="title[i]" :params="item" :subtitle="title.toString()"/>
+              </v-carousel-item>
+            </v-carousel>
+            <div v-else style="width:100%;height:100%;display:flex;justify-content:center;align-items:center;">예측된 데이터가 없습니다.</div>
           </div>
           <div style="width:100%;height:50%; background: rgb(37, 37, 37);">
             <data-viewer />
-          </div>
+          </div> -->
         </v-content>
       </div>
 
@@ -94,7 +128,7 @@ export default {
     
   },
   mounted() {
-    
+    console.log(this.$refs.gl)
   },
   updated() {
     
@@ -164,5 +198,10 @@ export default {
   border-right: 1px solid rgb(51, 51, 51);
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.hscreen {
+  width: 100%;
+  height: 50%;
 }
 </style>

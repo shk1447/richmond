@@ -1,7 +1,7 @@
 <template>
 <div class="header-area">
   <div style="display: inline-flex; height: 100%">
-    <my-theme style="height: 100%; margin-left: 1em;">
+    <my-theme style="height: 100%;">
       <hsc-menu-bar style="height: 100%; border-radius: 0 0 4pt 0">
         <hsc-menu-bar-item label="File" class="menu-item-wrapper">
           <hsc-menu-item label="Load" />
