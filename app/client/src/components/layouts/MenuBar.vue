@@ -1,8 +1,7 @@
 <template>
 <div class="header-area">
   <div style="display: inline-flex; height: 100%">
-    <div data-v-42c708e7="" class="v-image v-responsive theme--dark" style="height: 100%; width: 40px; margin-left: 1em; padding: 0.5em;"><div class="v-image__image v-image__image--contain custom-logo" ></div><div class="v-responsive__content"></div></div>
-    <my-theme style="height: 100%; margin-left: 1em;">
+    <my-theme style="height: 100%;">
       <hsc-menu-bar style="height: 100%; border-radius: 0 0 4pt 0">
         <hsc-menu-bar-item label="File" class="menu-item-wrapper">
           <hsc-menu-item label="Load" @click="onLoad"/>
