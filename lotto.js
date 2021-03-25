@@ -9,7 +9,7 @@ workbook.SheetNames.forEach((sheet_name, i) => {
   json_data.forEach(function (data, i) {
     var repeat = i % 15;
     if (repeat == 0) {
-      histogram_list.push(histogram.toString())
+      histogram_list.push(histogram)
       histogram = new Array(45);
       histogram.fill(0);
     }
@@ -17,4 +17,5 @@ workbook.SheetNames.forEach((sheet_name, i) => {
       histogram[num - 1]++;
     })
   })
+  console.log(histogram_list)
 })

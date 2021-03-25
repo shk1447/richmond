@@ -29,12 +29,7 @@ export default {
     };
   },
   watch: {
-    tab(new_val, old_val) {
-      this.onFocusTab(this.tabs[new_val].name);
-    },
-    'mrx_store.app.file_info.input_data' : function(new_val, old_val) {
-      this.onRenderData(new_val)
-    }
+    
   },
   methods: {
     notifications() {
@@ -42,47 +37,7 @@ export default {
         ex] 아래와 같이 사용
         [{path:'app.loading', callback : function() { }}]
         */
-      return [
-        { path: "app.tab_info", callback: this.onTabs },
-        { path: "app.tab_info.active_tab", callback: this.onFocusTab },
-      ];
-    },
-    onDragStart(e, tab) {
-      // 데이터를 이벤트에 저장하는 함수 입니다.( dragstart라는 이벤트에서 담아주시면 되요^^ )
-      // e.dataTransfer.setData("tab_info", JSON.stringify(tab));
-    },
-    onDragover(e) {
-      e.preventDefault();
-      // 언제든 물어보세요^^ㅎ
-    },
-    onDropTab(e) {
-      e.preventDefault();
-      // 데이터 전달받는 함수 입니다.!
-      var transfer_data = e.dataTransfer.getData("tab_info");
-    },
-    onFocusTab(active_tab) {
-      var tab_idx = 0;
-      this.tabs.forEach(function (v, k) {
-        if (active_tab == v.name) {
-          tab_idx = k;
-          v.activate = true;
-        } else {
-          v.activate = false;
-        }
-      });
-      this.tab = tab_idx;
-    },
-    onTabs(tab_info) {
-      this.tabs = Object.keys(tab_info.tabs).map(function (v, k) {
-        tab_info.tabs[v]["name"] = v;
-        return tab_info.tabs[v];
-      });
-    },
-    onRenderData(input_data) {
-      this.tabs = Object.keys(input_data).map(function (v, k) {
-        input_data[v]["name"] = v;
-        return input_data[v];
-      });
+      return [];
     }
   },
   created() {
