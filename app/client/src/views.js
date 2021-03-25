@@ -4,17 +4,14 @@ var windows = [];
 
 var panels = [];
 
-var dialogs = [{
-  compName:'predict-setting',
-  compPath:require('./components/dialogs/PredictSetting.vue')
-}];
+var dialogs = [];
 
 var viewers = [{
   compName:'data',
   compPath:require('./components/contents/DataViewer.vue')
 },{
-  compName:'predict',
-  compPath:require('./components/contents/PredictViewer.vue')
+  compName:'chart',
+  compPath:require('./components/contents/ChartViewer.vue')
 }];
 
 export default {
