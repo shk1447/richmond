@@ -21,30 +21,28 @@
       <div class="body-area">
         <!-- Content Area -->
         <v-content id="bottom_content">
-          <golden-layout class="hscreen">
+          <golden-layout class="hscreen" :showPopoutIcon="false">
             <gl-col>
-              <gl-row>
-                <gl-component :closable="false" :reorderEnabled="false" title="component1">
+              <gl-dstack>
+                <gl-component :closable="false" :reorderEnabled="false" title="Visualize 01">
                   <data-viewer />
                 </gl-component>
-                <gl-component title="component2">
-                  <data-viewer />
+              </gl-dstack>
+              <gl-dstack>
+                <gl-component :closable="false" :reorderEnabled="false" title="Configure 01">
+                  <predict-setting-dialog></predict-setting-dialog>
                 </gl-component>
-              </gl-row>
-            </gl-col>
-          </golden-layout>
-          <golden-layout class="hscreen">
-            <gl-col>
-              <gl-stack>
-                <gl-component title="component3">
-                  <h1>Component 2</h1>
-                </gl-component>
-                <gl-component title="component4">
+                <gl-component title="Configure 02">
                   <h1>Component 3</h1>
                 </gl-component>
-              </gl-stack>
+              </gl-dstack>
             </gl-col>
           </golden-layout>
+          <!-- <golden-layout class="hscreen">
+            <gl-col>
+              
+            </gl-col>
+          </golden-layout> -->
           <!-- <div style="width:100%;height:40%; background: rgb(37, 37, 37);border-bottom: 1px solid rgb(51, 51, 51);">
             <v-carousel v-if="predict_list.length > 0" height="100%" hide-delimiter-background show-arrows-on-hover @change="onChangePredict">
               <v-carousel-item
@@ -373,6 +371,6 @@ export default {
 
 .hscreen {
   width: 100%;
-  height: 50%;
+  height: 100%;
 }
 </style>
