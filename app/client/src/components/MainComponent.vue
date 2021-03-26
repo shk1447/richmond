@@ -30,10 +30,7 @@
               </gl-dstack>
               <gl-dstack>
                 <gl-component :closable="false" :reorderEnabled="false" title="Configure 01">
-                  <predict-setting-dialog></predict-setting-dialog>
-                </gl-component>
-                <gl-component title="Configure 02">
-                  <h1>Component 3</h1>
+                  <code-viewer />
                 </gl-component>
               </gl-dstack>
             </gl-col>
@@ -80,8 +77,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 import MenuBar from "./layouts/MenuBar";
 
 export default {
@@ -161,7 +156,7 @@ export default {
 }
 .body-area {
   display: flex;
-  height: calc(100% - 88px);
+  height: calc(100% - 72px);
   z-index: 8;
 }
 
@@ -176,6 +171,7 @@ export default {
 }
 .footer-area {
   min-height: 30px;
+  height: 36px;
   display:flex;
   width: 100%;
   padding:1em;

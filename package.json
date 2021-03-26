@@ -27,6 +27,7 @@
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.1",
     "uuidv4": "^6.2.6",
+    "vue2-ace-editor": "0.0.15",
     "xlsx": "^0.16.9"
   }
 }

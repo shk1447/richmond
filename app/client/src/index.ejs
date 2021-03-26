@@ -1,66 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>SK E&S LNG-PREDICTOR</title>
-    <style>
-        .custom-logo {
-            background-image: url('./static/icons/logo.png');
-            background-position: center center;
-        }
-    </style>
+    <title>GENERAL</title>
     <script>
-        const {ipcRenderer, remote } = require('electron')
+        const { ipcRenderer, remote } = require('electron')
         function uuid() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 3 | 8);
                 return v.toString(16);
             });
         }
-        window.onIPC = function(handler) {
+        window.onIPC = function (handler) {
             ipcRenderer.on('asynchronous-reply', handler)
         }
-        window.offIPC = function(handler) {
+        window.offIPC = function (handler) {
             ipcRenderer.off('asynchronous-reply', handler)
         }
 
-        window.sendIPC = function(arg) {
+        window.sendIPC = function (arg) {
             ipcRenderer.send('asynchronous-message', arg)
         }
 
-        window.saveFile = function(callback) {
+        window.saveFile = function (callback) {
             try {
                 var options = {
                     title: "Export Excel",
-                    defaultPath : "optimized_file.xlsx",
-                    buttonLabel : "Export",
+                    defaultPath: "optimized_file.xlsx",
+                    buttonLabel: "Export",
 
-                    filters :[
-                        {name: 'xlsx', extensions: ['xlsx']},
-                        {name: 'All Files', extensions: ['*']}
+                    filters: [
+                        { name: 'xlsx', extensions: ['xlsx'] },
+                        { name: 'All Files', extensions: ['*'] }
                     ]
                 }
 
-                remote.dialog.showSaveDialog( options, (filename) => {
+                remote.dialog.showSaveDialog(options, (filename) => {
                     callback(filename)
                     //fs.writeFileSync(filename, "hello world", 'utf-8');
                 })
             } catch (error) {
-                
+
             }
         }
-        window.exit = function() {
+        window.exit = function () {
             remote.getCurrentWindow().close();
         }
-        window.minimize = function() {
+        window.minimize = function () {
             remote.getCurrentWindow().minimize();
         }
-        window.maximize = function() {
+        window.maximize = function () {
             var win = remote.getCurrentWindow();
             console.log(win)
-            if(win.isMaximized()) {
+            if (win.isMaximized()) {
                 win.restore()
             } else {
                 win.maximize();
@@ -70,8 +65,8 @@
 </head>
 
 <body>
-<div id="app"></div>
-<!-- built files will be auto injected -->
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
 </body>
 
 </html>
