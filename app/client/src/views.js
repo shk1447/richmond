@@ -18,6 +18,9 @@ var viewers = [{
 }, {
   compName: 'map',
   compPath: require('./components/contents/MapViewer.vue')
+}, {
+  compName: 'flow',
+  compPath: require('./components/contents/FlowViewer.vue')
 }];
 
 export default {

@@ -8,28 +8,31 @@
       <div class="body-area">
         <!-- Content Area -->
         <v-content>
-          <golden-layout class="hscreen" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange">
+          <golden-layout class="hscreen" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange" @tabCreated="handleTabCreated" @stackCreated="handleStackCreated">
             <gl-col>
               <gl-row :height="70">
-                <gl-dstack>
+                <gl-stack>
                   <gl-component :closable="false" :reorderEnabled="false" title="Data 01">
-                    <data-viewer />
+                    <code-viewer />
                   </gl-component>
-                </gl-dstack>
-                <gl-dstack :width="80">
+                </gl-stack>
+                <gl-stack :width="80">
+                  <gl-component title="Flow 01">
+                    <flow-viewer />
+                  </gl-component>
+                  <gl-component :closable="false" :reorderEnabled="false" title="Chart 01">
+                    <chart-viewer />
+                  </gl-component>
                   <gl-component title="Map 01">
                     <map-viewer />
                   </gl-component>
-                  <gl-component title="Chart 01">
-                    <chart-viewer />
-                  </gl-component>
-                </gl-dstack>
+                </gl-stack>
               </gl-row>
-              <gl-dstack>
-                <gl-component :closable="false" :reorderEnabled="false" title="Code 01">
-                  <code-viewer />
+              <gl-stack>
+                <gl-component :closable="false" :reorderEnabled="false" title="Data 01">
+                  <data-viewer />
                 </gl-component>
-              </gl-dstack>
+              </gl-stack>
             </gl-col>
           </golden-layout>
         </v-content>
@@ -90,7 +93,17 @@ export default {
       return [];
     },
     handleContentChange(a,b,c) {
-      console.log(a,b,c);
+      //console.log(a,b,c);
+    },
+    handleTabCreated(tab) {
+      tab.element.on('dblclick', function(e) {
+        alert('tab : ' + tab.element.text())
+      })
+    },
+    handleStackCreated(stack) {
+      console.log(stack.header.controlsContainer);
+      stack.header.controlsContainer.prepend('<li title="Setting"><span class="mdi mdi-cog"></span></li>');
+      stack.header.controlsContainer.prepend('<li title="New Tab"><span class="mdi mdi-plus-box-outline"></span></li>');
     }
   },
   beforeCreate() {
@@ -100,7 +113,7 @@ export default {
     
   },
   mounted() {
-    console.log(this.$refs.gl)
+    
   },
   updated() {
     
@@ -135,7 +148,7 @@ export default {
 }
 .body-area {
   display: flex;
-  height: calc(100% - 72px);
+  height: calc(100% - 64px);
   z-index: 8;
 }
 
@@ -150,10 +163,11 @@ export default {
 }
 .footer-area {
   min-height: 30px;
-  height: 36px;
+  margin-top: 1px;
+  height: 31px;
   display:flex;
   width: 100%;
-  padding:1em;
+  padding:.5em;
   background: #222933;
 }
 .navigation-area {

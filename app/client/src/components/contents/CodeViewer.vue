@@ -14,6 +14,7 @@
 
 <script>
 import AceEditor from "vue2-ace-editor";
+import { addListener, removeListener } from "resize-detector";
 
 export default {
   components: {
@@ -61,18 +62,23 @@ export default {
         // ace.config.setModuleUrl("ace/snippets/javascript", "./client/common/libs/tern/snippets/javascript.js");
       }
     },
+    resizeHandler() {
+      this.editor.resize()
+    }
   },
   created() {
     console.log("created");
   },
   mounted() {
     console.log("mounted");
+    addListener(this.$el, this.resizeHandler)
   },
   updated() {
     console.log("updated");
   },
   destroyed() {
     console.log("destroyed");
+    removeListener(this.$el, this.resizeHandler);
   },
 };
 </script>

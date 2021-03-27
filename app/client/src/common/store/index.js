@@ -1,12 +1,14 @@
 import app from './app.js'
 import socket from './socket.js'
 import process from './process.js'
+import flow from './flow.js'
 
 // 내부 컴포넌트 간의 커스텀 이벤트 전달을 위한 객체
 export default (function () {
   var handlers = {};
   var store_objs = {
     app: app,
+    flow: flow,
     socket: socket,
     process: process,
   }
