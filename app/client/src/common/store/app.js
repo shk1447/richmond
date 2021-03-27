@@ -3,15 +3,16 @@ export default {
     current: 0,
     total: 0,
   },
-  message:'',
+  message: '',
   dialog: {
     name: "",
-    show: false,
-    persistent: false,
+    show: true,
+    persistent: true,
+    compName: 'space-dialog',
     params: {},
   },
-  file_info:{
-    input_data:{},
-    predict:{}
+  file_info: {
+    input_data: {},
+    predict: {}
   },
 }

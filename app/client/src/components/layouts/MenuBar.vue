@@ -1,13 +1,19 @@
 <template>
 <div class="header-area">
   <div style="display: inline-flex; height: 100%">
+    <div style="height:100%; margin-left:1em; margin-right:1em; width:90px;background: url('./static/images/logo.png') no-repeat 50% 50%;background-size:contain; filter:invert(1);"></div>
     <my-theme style="height: 100%;">
       <hsc-menu-bar style="height: 100%; border-radius: 0 0 4pt 0">
-        <hsc-menu-bar-item label="File" class="menu-item-wrapper">
-          <hsc-menu-item label="Load" />
-          <hsc-menu-item label="Export" />
+        <hsc-menu-bar-item label="Space" class="menu-item-wrapper">
+          <hsc-menu-item label="Load" @click="showSpaceDialog" />
+          <hsc-menu-item label="Save" />
           <hsc-menu-separator />
-          <hsc-menu-item label="Clear" />
+          <hsc-menu-item label="Logout" />
+        </hsc-menu-bar-item>
+        <hsc-menu-bar-item label="View" class="menu-item-wrapper">
+          <hsc-menu-item label="Project" />
+          <hsc-menu-item label="Flow" />
+          <hsc-menu-item label="Table" />
         </hsc-menu-bar-item>
         <hsc-menu-bar-item label="Help" class="menu-item-wrapper">
           <hsc-menu-item label="Welcome" />
@@ -22,6 +28,13 @@
   <v-spacer style="-webkit-app-region: drag; height:100%;" />
   
   <div class="action-item-wrapper" @click="minimize">
+    <v-icon small >mdi-bell</v-icon>
+  </div>
+
+  <div class="action-item-wrapper" @click="minimize">
+    <v-icon small >mdi-account-circle</v-icon>
+  </div>
+  <!-- <div class="action-item-wrapper" @click="minimize">
     <v-icon x-small >mdi-window-minimize</v-icon>
   </div>
   <div class="action-item-wrapper" @click="maximize">
@@ -29,7 +42,7 @@
   </div>
   <div class="action-item-wrapper" @click="exit">
     <v-icon x-small >mdi-window-close</v-icon>
-  </div>
+  </div> -->
 </div>
 </template>
 
@@ -45,7 +58,7 @@ const disabled = {
 };
 const separator = {
   backgroundColor: "rgba(240, 240, 240, 0.25)",
-  height:'1pt',
+  height:'.5pt',
   margin:'0pt',
 };
 export default {
@@ -70,6 +83,13 @@ export default {
     }),
   },
   methods: {
+    showSpaceDialog() {
+      this.store.app.dialog = {
+        show:true,
+        compName : 'space-dialog',
+        params: {}
+      }
+    },
     minimize() {
       window.minimize()
     },

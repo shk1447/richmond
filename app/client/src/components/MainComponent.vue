@@ -12,25 +12,28 @@
             <gl-col>
               <gl-row :height="70">
                 <gl-stack>
-                  <gl-component :closable="false" :reorderEnabled="false" title="Data 01">
-                    <code-viewer />
+                  <gl-component :closable="false" :reorderEnabled="false" title="Project">
+                    <tree-viewer />
                   </gl-component>
                 </gl-stack>
-                <gl-stack :width="80">
-                  <gl-component title="Flow 01">
+                <gl-stack :width="85">
+                  <gl-component :closable="false" :reorderEnabled="false" title="Flow">
                     <flow-viewer />
                   </gl-component>
-                  <gl-component :closable="false" :reorderEnabled="false" title="Chart 01">
+                  <gl-component title="Chart">
                     <chart-viewer />
                   </gl-component>
-                  <gl-component title="Map 01">
+                  <gl-component title="Map">
                     <map-viewer />
                   </gl-component>
                 </gl-stack>
               </gl-row>
               <gl-stack>
-                <gl-component :closable="false" :reorderEnabled="false" title="Data 01">
+                <gl-component :closable="false" :reorderEnabled="false" title="Data">
                   <data-viewer />
+                </gl-component>
+                <gl-component :closable="false" :reorderEnabled="false" title="Code">
+                  <code-viewer />
                 </gl-component>
               </gl-stack>
             </gl-col>

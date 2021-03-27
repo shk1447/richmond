@@ -4,7 +4,10 @@ var windows = [];
 
 var panels = [];
 
-var dialogs = [];
+var dialogs = [{
+  compName: 'space',
+  compPath: require('./components/dialogs/SpaceDialog.vue')
+}];
 
 var viewers = [{
   compName: 'data',
@@ -21,6 +24,9 @@ var viewers = [{
 }, {
   compName: 'flow',
   compPath: require('./components/contents/FlowViewer.vue')
+}, {
+  compName: 'tree',
+  compPath: require('./components/contents/TreeViewer.vue')
 }];
 
 export default {

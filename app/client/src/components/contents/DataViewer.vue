@@ -11,18 +11,21 @@ export default {
   data() {
     return {
       headers: [
-        { text: 'Process Code', value: 'code' },
-        { text: 'No', value: 'no' },
-        { text: 'Process Name', value: 'name' },
-        { text: 'Process Detail', value: 'detail' },
-        { text: 'Control Code', value: 'c_code' },
-        { text: '계정과목', value: 'kinds' },
+        { text: 'ID', value: 'id' },
+        { text: 'Name', value: 'name' },
+        { text: 'Type', value: 'type' },
+        { text: 'Description', value: 'desc' },
       ],
       items: [],
     };
   },
   watch: {
-    
+    "store.flow.selected_proc": {
+      deep: true,
+      handler(newVal, oldVal) {
+        this.items = newVal.children;
+      }
+    }
   },
   methods: {
     notifications() {
@@ -35,17 +38,6 @@ export default {
   },
   created() {
     console.log("created");
-    for(var i = 1; i <= 16; i++) {
-      var item = {
-        code:'PU-' + i.toString(),
-        no:i.toString(),
-        name:'구매',
-        detail:'',
-        c_code:'',
-        kinds:''
-      }
-      this.items.push(item);
-    }
   },
   mounted() {
     console.log("mounted");
