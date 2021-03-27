@@ -3,7 +3,7 @@
   <div @dragover="dragover" @drop="drop" style="width:100%;height:100%;z-index:1;" ref="flow_container"></div>
   
   <div class="side-btn">
-    <label style="font-size:0.8em;color:black;">Snap</label>
+    <label style="font-size:0.8em;color:#684;">Snap</label>
     <div>
       <input v-model="grid_snap" type="checkbox" id="switch1" name="switch1" class="input__on-off">
       <label for="switch1" class="label__on-off">
@@ -17,7 +17,7 @@
                 </template>
           <span>드래그 앤 드랍으로 배치하며, 더블 클릭시 다른 노드를 선택 가능합니다.</span>
         </v-tooltip>
-        <div v-else draggable @dragstart="dragstart($event, item)" @click="onSelectType(item)" :key="i" v-for="(item,i) in node_types" :style="'margin:.2em;width:50px;height: 50px;background: url(./static/images/'+item.toLowerCase()+'.svg) 50% 50% / contain no-repeat;/* margin-top: 1em; *//* padding-top: 1em; */'"></div>
+        <div v-else draggable @dragstart="dragstart($event, item)" @click="onSelectType(item)" :key="i" v-for="(item,i) in node_types" :style="'margin:.2em;width:50px;height: 50px;background: url(./static/images/'+item.toLowerCase()+'.svg) 50% 50% / contain no-repeat;'"></div>
       </div>
   </div>
 
@@ -346,7 +346,7 @@ export default {
       zoomDash: true, // Determines whether the size of the dashes should change when the drawing is zoomed in and out if grid is drawn.
       panGrid: true, // Determines whether the grid should move then the user moves the graph if grid is drawn.
       gridStackOrder: -1, // Namely z-index
-      gridColor: '#3c3c3c', // Color of grid lines
+      gridColor: '#333333', // Color of grid lines
       lineWidth: 1.0, // Width of grid lines
 
       // Guidelines
@@ -619,15 +619,15 @@ export default {
   right: 10px;
   bottom: 10px;
   padding: 0.2em;
-  border: 1px solid black;
+  border: 1px solid #555;
   min-width: 50px;
   min-height: 50px;
   text-align: center;
   border-radius: 8px;
   z-index: 1;
   cursor: pointer;
-  background: white;
-  box-shadow: 0 0 20px rgba(34, 36, 38, .15);
+  background: #333;
+  box-shadow:0 4px 2px -3px rgba(0,0,0,.2), 0 3px 3px 0 rgba(0,0,0,.14), 0 2px 6px 0 rgba(0,0,0,.12);
   transition: 0.3s ease all;
 }
 
