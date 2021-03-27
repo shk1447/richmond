@@ -22,13 +22,13 @@
   <v-spacer style="-webkit-app-region: drag; height:100%;" />
   
   <div class="action-item-wrapper" @click="minimize">
-    <v-icon small >mdi-window-minimize</v-icon>
+    <v-icon x-small >mdi-window-minimize</v-icon>
   </div>
   <div class="action-item-wrapper" @click="maximize">
-    <v-icon small >mdi-window-maximize</v-icon>
+    <v-icon x-small >mdi-window-maximize</v-icon>
   </div>
   <div class="action-item-wrapper" @click="exit">
-    <v-icon small >mdi-window-close</v-icon>
+    <v-icon x-small >mdi-window-close</v-icon>
   </div>
 </div>
 </template>
@@ -104,7 +104,7 @@ export default {
   cursor:pointer;
 }
 .action-item-wrapper {
-  margin-left:.5em; width:4em; height:100%; display:flex; justify-content:center; align-items:center; cursor: pointer;
+  margin-left:.5em; width:3em; height:100%; display:flex; justify-content:center; align-items:center; cursor: pointer;
 }
 
 .action-item-wrapper:hover {

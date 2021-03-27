@@ -32,6 +32,7 @@ import "element-theme-dark";
 
 import WindowPopup from "./components/common/WindowPopup.vue";
 Vue.component("window-popup", WindowPopup);
+
 import ECharts from "./components/common/ChartComponent.vue";
 Vue.component("v-chart", ECharts);
 
@@ -44,6 +45,11 @@ Vue.use(vgl);
 import 'golden-layout/src/css/goldenlayout-dark-theme.css'
 
 // register component to use
+import 'leaflet';
+import 'proj4leaflet';
+import '@/plugins/leaflet/leaflet.css'
+import "@/plugins/leaflet/Leaflet.KoreanTmsProviders.js"
+import '@/plugins/leaflet/L.Map.ScrollWheelZoom.js'
 
 // 메인 컴포넌트 및 라우터 적용 코드
 import router from "./router";
@@ -80,7 +86,7 @@ views.viewers.forEach(function (v, k) {
 Vue.mixin({
   data() {
     return {
-      mrx_store: common.store.all
+      store: common.store.all
     }
   },
   methods: {
@@ -91,22 +97,6 @@ Vue.mixin({
             [{path:'app.loading', callback : function() { }}]
             */
       return [];
-    },
-    visibleLoading: function (uuid, target) {
-      var options = {
-        uuid: uuid,
-        show: true
-      };
-      if (target) options['target'] = target
-      common.store.setProperty("app.loading", options);
-    },
-    hiddenLoading: function (uuid, target) {
-      var options = {
-        uuid: uuid,
-        show: false
-      };
-      if (target) options['target'] = target
-      common.store.setProperty("app.loading", options);
     }
   },
   created: function () {
@@ -114,10 +104,6 @@ Vue.mixin({
     handlers.forEach(function (handle, k) {
       common.store.onProperty(handle.path, handle.callback);
     });
-    if (this.$route && Object.keys(this.$route.query).length > 0) {
-      this.$common.store.setProperty("app.query", this.$route.query);
-      this.$router.replace({ query: null });
-    }
   },
   destroyed: function () {
     var handlers = this.notifications();

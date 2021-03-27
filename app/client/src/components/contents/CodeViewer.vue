@@ -1,5 +1,5 @@
 <template>
-  <div style="position:absoulte; width:100%; height:100%">
+  <div style="position:absolute; width:100%; height:100%">
     <editor
       v-model="data"
       @init="editorInit"
@@ -36,7 +36,6 @@ export default {
       }
     },
     editorInit: function(editor) {
-      console.log('test');
       this.editor = editor;
       if (!this.isInit) {
         this.isInit = true;

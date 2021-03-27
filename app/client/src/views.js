@@ -15,6 +15,9 @@ var viewers = [{
 }, {
   compName: 'code',
   compPath: require('./components/contents/CodeViewer.vue')
+}, {
+  compName: 'map',
+  compPath: require('./components/contents/MapViewer.vue')
 }];
 
 export default {
