@@ -7,6 +7,9 @@ var panels = [];
 var dialogs = [{
   compName: 'space',
   compPath: require('./components/dialogs/SpaceDialog.vue')
+}, {
+  compName: 'schema',
+  compPath: require('./components/dialogs/SchemaDialog.vue')
 }];
 
 var viewers = [{

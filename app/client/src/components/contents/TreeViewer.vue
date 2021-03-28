@@ -1,28 +1,57 @@
 <template>
 
 <div style="height:100%;overflow:auto;">
-  <v-treeview v-model="tree" :items="search_items" item-key="id" item-text="name" class="process-tree-view"
-      activatable return-object dense open-all hoverable >
-    <template v-slot:label="{ item }">
-      <div tabindex="0" style="outline: none; width: 100%; height: 100%; cursor:pointer;" @dblclick="onLoadProcess(item)">
-        {{ item.name == '' ? '-' : item.name }}
+      <div
+        class="expand-title"
+        style="border-top:1px solid rgb(51,51,51);"
+      >
+        <v-icon @click="onExpand(expander)" small>{{
+          expand ? "mdi-chevron-down" : "mdi-chevron-right"
+        }}</v-icon>
+        <div style="margin-left: 0.5em">Projects Home</div>
+        <v-spacer></v-spacer>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-hover v-slot:default="{ hover }">
+              <v-icon
+                v-on="on"
+                style="padding: 0em 0em 0em 0.5em; cursor: pointer"
+                small
+                :color="hover ? 'rgb(200,200,200)' : 'rgb(133, 133, 133)'"
+                >mdi-cog</v-icon
+              >
+            </v-hover>
+          </template>
+          <span>Upload Project</span>
+        </v-tooltip>
       </div>
-    </template>
-    <!-- <template v-slot:append="{ item }">
-      <v-tooltip bottom v-if="item.type == 'Process'">
-        <template v-slot:activator="{ on }">
-          <v-icon @click="addChildren(item)" v-on="on" small>mdi-plus</v-icon>
-        </template>
-        <span>Add ChildNode</span>
-      </v-tooltip>
-      <v-tooltip bottom v-if="item.id != 'root'">
-        <template v-slot:activator="{ on }">
-          <v-icon @click="removeChildren(item)" v-on="on" small>mdi-delete</v-icon>
-        </template>
-        <span>Delete Node</span>
-      </v-tooltip>
-    </template> -->
-  </v-treeview>
+      <div
+        :class="expand ? 'expand-content expand' : 'expand-content'"
+        ref="ref_obj_list"
+      >
+        <v-treeview v-model="tree" :items="search_items" item-key="id" item-text="name" class="process-tree-view"
+            return-object dense open-all hoverable >
+          <template v-slot:label="{ item }">
+            <div tabindex="0" style="outline: none; width: 100%; height: 100%; cursor:pointer;" @dblclick="onLoadProcess(item)">
+              {{ item.name == '' ? '-' : item.name }}
+            </div>
+          </template>
+          <template v-slot:append="{ item }">
+            <v-tooltip bottom v-if="item.type == 'Process'">
+              <template v-slot:activator="{ on }">
+                <v-icon x-small @click="setSchema(item)" v-on="on">mdi-database</v-icon>
+              </template>
+              <span>Setting Schema</span>
+            </v-tooltip>
+            <!-- <v-tooltip bottom v-if="item.id != 'root'">
+              <template v-slot:activator="{ on }">
+                <v-icon @click="removeChildren(item)" v-on="on" small>mdi-delete</v-icon>
+              </template>
+              <span>Delete Node</span>
+            </v-tooltip> -->
+          </template>
+        </v-treeview>
+      </div>
 </div>
 
 </template>
@@ -34,6 +63,10 @@ export default {
     // 외부 컴포넌트 등록
   },
   methods: {
+    onExpand() {
+      this.expand = !this.expand;
+      this.$emit("update:expand", this.expand);
+    },
     search (tree, value, key = 'id', reverse = false) {
       const stack = [ tree[0] ]
       while (stack.length) {
@@ -69,6 +102,15 @@ export default {
         }
       })
     },
+    setSchema(item) {
+      this.store.app.dialog = {
+        show:true,
+        compName : 'schema-dialog',
+        params: {
+          item:item
+        }
+      }
+    },
     removeChildren(item) {
       var parent_node = this.search(this.store.flow.node_list, item.parent);
       var rm_idx = parent_node.children.indexOf(item);
@@ -99,6 +141,7 @@ export default {
     return {
       tree:[],
       search_text:'',
+      expand:true,
     }
   },
   created() {
@@ -123,4 +166,28 @@ export default {
 .process-tree-view {
   height:100%;
 }
+
+.expand-title {
+  width: 100%;
+  height: 3em;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1), 0 2px 2px 0 rgba(0, 0, 0, 0.05),
+    0 1px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.expand-content {
+  width: 100%;
+  transition: 0.3s ease all;
+  min-height: 0px;
+  height: 0px;
+  visibility: hidden;
+}
+.expand-content.expand {
+  height: auto;
+  min-height: 250px;
+  visibility: visible;
+}
+
 </style>

@@ -3,7 +3,7 @@
     <v-data-table :headers="headers" :items="store.flow.space_list">
       <template v-slot:top>
         <v-toolbar short flat>
-          <v-toolbar-title>SPACE LIST</v-toolbar-title>
+          <v-toolbar-title>SPACES</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-dialog v-model="dialogProject" max-width="500px">
             <template v-slot:activator="{ on }">

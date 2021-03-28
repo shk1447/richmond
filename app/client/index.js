@@ -5,7 +5,7 @@ const webpack = require('webpack');
 
 cmd.option('-m, --mode [mode]', 'set mode', 'development')
   .option('-p, --port [port]', 'set port', '8080')
-  .option('-P, --proxy [host]', 'set proxy host', '')
+  .option('-P, --proxy [host]', 'set proxy host', 'http://localhost:8081')
   .option('-r, --reload [reload]', 'hot reload option', 'true')
   .parse(process.argv);
 
@@ -15,7 +15,7 @@ process.env.NODE_ENV = 'production';
 process.env.port = cmd.port;
 process.env.proxy = cmd.proxy;
 process.env.reload = cmd.reload;
-process.env.root_path = path.resolve(__dirname,'../dist');
+process.env.root_path = path.resolve(__dirname, '../dist');
 
 const webpackConfig = require('./bundler/webpack.prod.conf.js');
 
@@ -25,12 +25,12 @@ const ora = require('ora');
 const rm = require('rimraf');
 const chalk = require('chalk');
 
-if(process.env.mode === 'production') {
+if (process.env.mode === 'production') {
   const spinner = ora('building for production...');
   spinner.start();
-  new Promise((resolve,reject) => {
+  new Promise((resolve, reject) => {
     rm(process.env.root_path, err => {
-      if(err) throw err;
+      if (err) throw err;
       webpack(webpackConfig, (err, stats) => {
         spinner.stop();
         if (err) throw err;
@@ -66,30 +66,30 @@ if(process.env.mode === 'production') {
   let app = express();
 
   app.use('/', webpackDevMiddleware(compiler, {
-    hot:true,
-    inline:true,
+    hot: true,
+    inline: true,
     historyApiFallback: true,
     stats: {
-          colors: true
+      colors: true
     },
-    publicPath:'/',
+    publicPath: '/',
     overlay: true
   }));
 
-  if(process.env.reload){
-        app.use('/', webpackHotMiddleware(compiler));
+  if (process.env.reload) {
+    app.use('/', webpackHotMiddleware(compiler));
   }
 
-  if(process.env.proxy) app.use('/', proxy(process.env.proxy));
+  if (process.env.proxy) app.use('/', proxy(process.env.proxy));
 
   let server = http.createServer(app);
-  server.listen(process.env.port, function(){
-        console.log('Server listening on '+ process.env.port +', Ctrl+C to stop');
-  }).on('error', function(err) {
-        console.log(err.message);
+  server.listen(process.env.port, function () {
+    console.log('Server listening on ' + process.env.port + ', Ctrl+C to stop');
+  }).on('error', function (err) {
+    console.log(err.message);
   });
 
-  server.on('upgrade', function(req, socket, head){
-    if(process.env.proxy) apiProxy.ws(req, socket, head, {target: process.env.proxy});
+  server.on('upgrade', function (req, socket, head) {
+    if (process.env.proxy) apiProxy.ws(req, socket, head, { target: process.env.proxy });
   });
 }

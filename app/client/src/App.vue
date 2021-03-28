@@ -147,6 +147,10 @@ body {
   white-space:pre;
 }
 
+.v-treeview-node__root {
+  min-height: 30px !important;
+}
+
 td {
   white-space:pre;
 }

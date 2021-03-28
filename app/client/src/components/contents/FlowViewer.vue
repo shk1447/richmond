@@ -381,7 +381,7 @@ export default {
                 idx: null,
                 parent:this.store.flow.selected_proc.id,
                 id: this.$common.utils.uuid(),
-                name: "",
+                name: "테스트",
                 type: "Process",
                 desc: "",
                 children: [],
@@ -601,8 +601,8 @@ export default {
       if(selected_node) selected_node['position'] = evt.target.position();
     }.bind(this))
 
-    this.render(this.store.flow.selected_proc);
-    this.render_edge();
+    // this.render(this.store.flow.selected_proc);
+    // this.render_edge();
     
     window.document.addEventListener("keyup", this.onShortCut);
   },
