@@ -1,0 +1,18 @@
+[{
+  "language":"javascript",
+  "service_name":"stock/collect",
+  "service_path":"./stock/collect.js",
+  "service_args": {
+      "redis_host":"environment.REDIS_HOST",
+      "redis_port":"environment.REDIS_PORT",
+      "type":"environment.DB_TYPE",
+      "host":"environment.DB_HOST",
+      "port":"environment.DB_PORT",
+      "user":"environment.DB_USER",
+      "password":"environment.DB_PASSWORD",
+      "db_name":"environment.DB_DATABASE",
+      "bucket_name":null,
+      "object_key":null
+  },
+  "version":"0.1"
+}]

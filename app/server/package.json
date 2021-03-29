@@ -10,25 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.5",
-    "commander": "^6.2.1",
-    "encoding-japanese": "^1.0.30",
     "epipebomb": "^1.0.0",
-    "fs-path": "0.0.25",
     "http": "0.0.1-security",
-    "iconv-lite": "^0.6.2",
     "leaflet-css": "^0.1.0",
     "lodash": "^4.17.20",
-    "moment": "^2.29.1",
     "os": "^0.1.1",
     "pidusage": "^2.0.21",
-    "request": "^2.88.2",
-    "requests": "^0.3.0",
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.1",
-    "uuidv4": "^6.2.6",
-    "vue2-ace-editor": "0.0.15",
-    "xlsx": "^0.16.9"
+    "uuidv4": "^6.2.6"
   }
 }

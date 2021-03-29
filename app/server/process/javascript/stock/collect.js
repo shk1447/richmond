@@ -3,7 +3,7 @@ const path = require('path');
 const fsPath = require('fs-path');
 const cmd = require('commander');
 const moment = require('moment');
-const collector = require('./collector.js')
+const collector = require('./common/NaverFinance.js')
 
 cmd.option('-c, --code [code]', 'set stock code', '')
   .option('-t, --stock_total [stock_total]', 'set stock total', '')
