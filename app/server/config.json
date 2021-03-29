@@ -9,11 +9,11 @@
         "database": "tacro"
     },
     "mysql": {
-        "host": "damoa.cz1wakucqtzr.ap-northeast-2.rds.amazonaws.com",
+        "host": "",
         "port": 3306,
-        "user": "admin",
-        "password": "Mak1naR0cks!",
-        "database": "damoa"
+        "user": "",
+        "password": "",
+        "database": ""
     },
     "sqlite3": {
         "filename":"./mrx.db"
