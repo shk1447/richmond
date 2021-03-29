@@ -2,7 +2,7 @@ const path = require('path');
 const XLSX = require('xlsx');
 
 var workbook = XLSX.readFileSync(path.resolve(__dirname, './excel.xlsx'));
-workbook.SheetNames.forEach((sheet_name, i) => {
+workbook.SheetNames.forEach((sheet_name) => {
   var json_data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name], { raw: false, rawNumbers: true, blankrows: false })
   var histogram = new Array(45);
   var histogram_list = [];

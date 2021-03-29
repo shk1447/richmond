@@ -9,7 +9,7 @@ const runtime = require('./runtime');
 const { Writable } = require('stream');
 const child_process = require('child_process');
 
-const collector = require('./process/collector.js');
+const collector = require('./process/collector.js.js');
 
 const ProcessPool = require('./runtime/ProcessPool.js');
 
