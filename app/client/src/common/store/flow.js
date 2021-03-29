@@ -9,6 +9,7 @@ export default {
     id: 'project01',
     name: 'ABC 회사 2021 V1.0',
     space_name: 'ABC 회사',
+    render:'Flow',
     type: 'Process',
     desc: '',
     children: []
