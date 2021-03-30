@@ -1,4 +1,4 @@
-import common from '../index.js'
+import {Buffer} from 'buffer';
 
 export default (function () {
     var temp = {
@@ -33,38 +33,96 @@ export default (function () {
 
         return mergeDeep(target, ...sources);
     }
-    let socketURL = "ws://localhost:59999/socket.mrx"
+    let socketURL = "ws://localhost:8080/sock"
     var connect = function () {
         var timeoutId;
         window.socket = new WebSocket(socketURL);
+        window.socket.binaryType = 'arraybuffer'
 
         window.socket.onopen = (eventArgs) => {
             console.log(eventArgs);
-            common.store.setProperty('app.message', 'Connect to Machine Learing Process!')
+            window.startTime = new Date().getTime();
         }
 
         window.socket.onclose = (eventArgs) => {
             console.log(eventArgs);
             clearTimeout(timeoutId);
             timeoutId = setTimeout(connect, 1500);
-            common.store.setProperty('app.message', 'Not Ready Machine Learning Process!');
         }
 
         window.socket.onerror = (eventArgs) => {
 
         };
-
+        var stat = {
+            length: 'uint',
+            min: 'uint',
+            q1: 'uint',
+            median: 'uint',
+            q3: 'uint',
+            max: 'uint',
+            total: 'uint',
+            avg: 'float'
+        }
+        var schema = new TypedJson.Type({
+            data: [{
+                date: 'date',
+                stats: {
+                    a: stat,
+                    b: stat,
+                    c: stat,
+                    d: stat,
+                    e: stat
+                }
+            }]
+        })
+        var aaa = [];
         window.socket.onmessage = (event) => {
-            var obj = JSON.parse(event.data.replace(/NaN/g, 'null'));
-            mergeDeep(temp[obj.name], obj.response);
-            if (obj.end) {
-                common.store.setProperty('socket.' + obj.name, temp[obj.name]);
-                temp[obj.name] = {};
-                common.store.setProperty('app.loading', false);
+            if(event.data instanceof ArrayBuffer) {
+                var buffer = Buffer.from(event.data);
+                var test = schema.decode(buffer);
+                aaa.push(test)
+                if(aaa.length == 100) {
+                    window.endTime = new Date().getTime();
+                    console.log((window.endTime - window.startTime) + 'ms (binary)')
+                }
             } else {
-                common.store.setProperty('app.loading', true);
+                var test = JSON.parse(event.data);
+                aaa.push(test)
+                if(aaa.length == 100) {
+                    window.endTime = new Date().getTime();
+                    console.log((window.endTime - window.startTime) + 'ms (json)')
+                }
             }
+            // if(event.data instanceof Blob) {
+            //     count++;
+            //     if(count === 10000) {
+            //         console.log('aaaa');
+            //     }
+            //     var schema = new TypedJson.Type({id:'uint'})
+
+            //     // var buffer = arrayBufferToBuffer(event.data)
+            //     // var test = schema.decode(buffer);
+            //     // if(test.id == 0) {
+            //     //     window.startTime = new Date().getTime();
+            //     // } else if (test.id == 9999) {
+            //     //     window.endTime = new Date().getTime();
+            //     //     console.log((window.endTime - window.startTime) + 'ms (binary)')
+            //     // }
+                
+            // } else {
+            //     _count++;
+            //     if(_count === 10000) {
+            //         console.log('bbbb');
+            //     }
+            //     // var test = JSON.parse(event.data);
+            //     // if(test.id == 0) {
+            //     //     window._startTime = new Date().getTime();
+            //     // } else if (test.id == 9999) {
+            //     //     window._endTime = new Date().getTime();
+            //     //     console.log((window._endTime - window._startTime) + 'ms (json)')
+            //     // }
+            //}
         };
     }
-    // connect();
+    connect();
 })();

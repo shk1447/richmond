@@ -90,6 +90,14 @@ if (process.env.mode === 'production') {
   });
 
   server.on('upgrade', function (req, socket, head) {
-    if (process.env.proxy) apiProxy.ws(req, socket, head, { target: process.env.proxy });
+    if (process.env.proxy) {
+      apiProxy.ws(req, socket, head, { target: process.env.proxy });
+      apiProxy.on('error', function (err) {
+        console.log('server side rebuilding...');
+      })
+      apiProxy.on("econnreset", function () {
+        console.log('server rebuild complete...');
+      })
+    }
   });
 }

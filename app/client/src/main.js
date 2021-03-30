@@ -56,10 +56,9 @@ import router from "./router";
 import App from "./App.vue";
 
 // import EventHandler from './utils/EventHandler.js';
-
+import './client.js';
 import common from "./common";
 Vue.prototype.$common = common;
-//common.utils.WebSocket();
 
 import views from "./views.js";
 
@@ -86,7 +85,7 @@ views.viewers.forEach(function (v, k) {
 Vue.mixin({
   data() {
     return {
-      store: common.store.all
+      store: this.$common.store.all
     }
   },
   methods: {
@@ -102,14 +101,14 @@ Vue.mixin({
   created: function () {
     var handlers = this.notifications();
     handlers.forEach(function (handle, k) {
-      common.store.onProperty(handle.path, handle.callback);
-    });
+      //this.$common.store.onProperty(handle.path, handle.callback);
+    }.bind(this));
   },
   destroyed: function () {
     var handlers = this.notifications();
     handlers.forEach(function (handle, k) {
-      common.store.offProperty(handle.path, handle.callback);
-    });
+      //this.$common.store.offProperty(handle.path, handle.callback);
+    }.bind(this));
   },
 });
 

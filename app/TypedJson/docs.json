@@ -1,0 +1,11 @@
+{
+	"source": {
+		"include": ["server.js", "lib"]
+	},
+	"plugins": [
+		"plugins/markdown"
+	],
+	"markdown": {
+		"parser": "gfm"
+	}
+}

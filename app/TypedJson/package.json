@@ -1,0 +1,18 @@
+{
+  "name": "typedjson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "browserify": "browserify server.js --standalone TypedJson > client.js",
+    "docs": "jsdoc -d docs -c docs.json -R README.md"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "jsdoc": "^3.5.5",
+    "mocha": "^4.0.1",
+    "should": "^13.1.3"
+  }
+}
