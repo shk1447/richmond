@@ -2,7 +2,7 @@
   "name": "typedjson",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "browserify": "browserify server.js --standalone TypedJson > client.js",
     "docs": "jsdoc -d docs -c docs.json -R README.md"
@@ -14,5 +14,8 @@
     "jsdoc": "^3.5.5",
     "mocha": "^4.0.1",
     "should": "^13.1.3"
+  },
+  "dependencies": {
+    "browser-or-node": "^1.3.0"
   }
 }

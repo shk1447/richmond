@@ -1,4 +1,4 @@
-import {Buffer} from 'buffer';
+import { Buffer } from 'buffer';
 
 export default (function () {
     var temp = {
@@ -63,7 +63,7 @@ export default (function () {
             total: 'uint',
             avg: 'float'
         }
-        var schema = new TypedJson.Type({
+        var schema = new TypedJson({
             data: [{
                 date: 'date',
                 stats: {
@@ -77,18 +77,18 @@ export default (function () {
         })
         var aaa = [];
         window.socket.onmessage = (event) => {
-            if(event.data instanceof ArrayBuffer) {
+            if (event.data instanceof ArrayBuffer) {
                 var buffer = Buffer.from(event.data);
                 var test = schema.decode(buffer);
                 aaa.push(test)
-                if(aaa.length == 100) {
+                if (aaa.length == 100) {
                     window.endTime = new Date().getTime();
                     console.log((window.endTime - window.startTime) + 'ms (binary)')
                 }
             } else {
                 var test = JSON.parse(event.data);
                 aaa.push(test)
-                if(aaa.length == 100) {
+                if (aaa.length == 100) {
                     window.endTime = new Date().getTime();
                     console.log((window.endTime - window.startTime) + 'ms (json)')
                 }
@@ -108,7 +108,7 @@ export default (function () {
             //     //     window.endTime = new Date().getTime();
             //     //     console.log((window.endTime - window.startTime) + 'ms (binary)')
             //     // }
-                
+
             // } else {
             //     _count++;
             //     if(_count === 10000) {
