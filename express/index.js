@@ -2,7 +2,7 @@ const url = require('url');
 const http = require('http');
 const express = require('express');
 const WebSocket = require('ws');
-const TypedJson = require('../app/TypedJson/index.js')
+const LightJson = require('light-json')
 
 var data = require('./data');
 var stat = {
@@ -16,7 +16,7 @@ var stat = {
   avg: 'float'
 }
 
-var schema = new TypedJson({
+var schema = new LightJson({
   data: [{
     date: 'date',
     stats: {
@@ -59,8 +59,8 @@ wss.on('connection', function (ws, req) {
   }
   for (var i = 0; i < 1000; i++) {
     // ws.send(JSON.stringify(data));
-    var test = schema.encode(data)
-    ws.send(test.buffer);
+    var test = schema.binarify(data)
+    ws.send(test);
   }
   // for(var i = 0; i < 10000; i++) {
 

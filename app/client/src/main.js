@@ -55,8 +55,10 @@ import '@/plugins/leaflet/L.Map.ScrollWheelZoom.js'
 import router from "./router";
 import App from "./App.vue";
 
+import LightJson from 'light-json';
+window.LightJson = LightJson;
 // import EventHandler from './utils/EventHandler.js';
-import './client.js';
+
 import common from "./common";
 Vue.prototype.$common = common;
 

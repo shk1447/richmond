@@ -53,33 +53,32 @@ export default (function () {
         window.socket.onerror = (eventArgs) => {
 
         };
-        var stat = {
-            length: 'uint',
-            min: 'uint',
-            q1: 'uint',
-            median: 'uint',
-            q3: 'uint',
-            max: 'uint',
-            total: 'uint',
-            avg: 'float'
-        }
-        var schema = new TypedJson({
-            data: [{
-                date: 'date',
-                stats: {
-                    a: stat,
-                    b: stat,
-                    c: stat,
-                    d: stat,
-                    e: stat
-                }
-            }]
-        })
         var aaa = [];
         window.socket.onmessage = (event) => {
+            var stat = {
+                length: 'uint',
+                min: 'uint',
+                q1: 'uint',
+                median: 'uint',
+                q3: 'uint',
+                max: 'uint',
+                total: 'uint',
+                avg: 'float'
+            }
+            var schema = new LightJson({
+                data: [{
+                    date: 'date',
+                    stats: {
+                        a: stat,
+                        b: stat,
+                        c: stat,
+                        d: stat,
+                        e: stat
+                    }
+                }]
+            })
             if (event.data instanceof ArrayBuffer) {
-                var buffer = Buffer.from(event.data);
-                var test = schema.decode(buffer);
+                var test = schema.parse(event.data);
                 aaa.push(test)
                 if (aaa.length == 100) {
                     window.endTime = new Date().getTime();
