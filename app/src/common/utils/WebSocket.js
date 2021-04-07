@@ -1,13 +1,5 @@
-import { Buffer } from 'buffer';
 
 export default (function () {
-    var temp = {
-        data_load: {},
-        optimize: {},
-        export: {},
-        progress: {}
-    }
-
     function isObject(item) {
         return (item && typeof item === 'object' && !Array.isArray(item));
     }
@@ -53,75 +45,10 @@ export default (function () {
         window.socket.onerror = (eventArgs) => {
 
         };
-        var aaa = [];
+        
         window.socket.onmessage = (event) => {
-            var stat = {
-                length: 'uint',
-                min: 'uint',
-                q1: 'uint',
-                median: 'uint',
-                q3: 'uint',
-                max: 'uint',
-                total: 'uint',
-                avg: 'float'
-            }
-            var schema = new LightJson({
-                data: [{
-                    date: 'date',
-                    stats: {
-                        a: stat,
-                        b: stat,
-                        c: stat,
-                        d: stat,
-                        e: stat
-                    }
-                }]
-            })
-            if (event.data instanceof ArrayBuffer) {
-                var test = schema.parse(event.data);
-                aaa.push(test)
-                if (aaa.length == 100) {
-                    window.endTime = new Date().getTime();
-                    console.log((window.endTime - window.startTime) + 'ms (binary)')
-                }
-            } else {
-                var test = JSON.parse(event.data);
-                aaa.push(test)
-                if (aaa.length == 100) {
-                    window.endTime = new Date().getTime();
-                    console.log((window.endTime - window.startTime) + 'ms (json)')
-                }
-            }
-            // if(event.data instanceof Blob) {
-            //     count++;
-            //     if(count === 10000) {
-            //         console.log('aaaa');
-            //     }
-            //     var schema = new TypedJson.Type({id:'uint'})
-
-            //     // var buffer = arrayBufferToBuffer(event.data)
-            //     // var test = schema.decode(buffer);
-            //     // if(test.id == 0) {
-            //     //     window.startTime = new Date().getTime();
-            //     // } else if (test.id == 9999) {
-            //     //     window.endTime = new Date().getTime();
-            //     //     console.log((window.endTime - window.startTime) + 'ms (binary)')
-            //     // }
-
-            // } else {
-            //     _count++;
-            //     if(_count === 10000) {
-            //         console.log('bbbb');
-            //     }
-            //     // var test = JSON.parse(event.data);
-            //     // if(test.id == 0) {
-            //     //     window._startTime = new Date().getTime();
-            //     // } else if (test.id == 9999) {
-            //     //     window._endTime = new Date().getTime();
-            //     //     console.log((window._endTime - window._startTime) + 'ms (json)')
-            //     // }
-            //}
+            
         };
     }
-    connect();
+    // connect();
 })();

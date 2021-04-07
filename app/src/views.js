@@ -4,18 +4,9 @@ var windows = [];
 
 var panels = [];
 
-var dialogs = [{
-  compName: 'space',
-  compPath: require('./components/dialogs/SpaceDialog.vue')
-}, {
-  compName: 'schema',
-  compPath: require('./components/dialogs/SchemaDialog.vue')
-}];
+var dialogs = [];
 
 var viewers = [{
-  compName: 'data',
-  compPath: require('./components/contents/DataViewer.vue')
-}, {
   compName: 'chart',
   compPath: require('./components/contents/ChartViewer.vue')
 }, {
@@ -25,11 +16,8 @@ var viewers = [{
   compName: 'map',
   compPath: require('./components/contents/MapViewer.vue')
 }, {
-  compName: 'flow',
-  compPath: require('./components/contents/FlowViewer.vue')
-}, {
-  compName: 'tree',
-  compPath: require('./components/contents/TreeViewer.vue')
+  compName: 'terminal',
+  compPath: require('./components/contents/TerminalViewer.vue')
 }];
 
 export default {

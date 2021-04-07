@@ -1,11 +1,10 @@
 <template>
 <div class="header-area">
   <div style="display: inline-flex; height: 100%">
-    <div style="height:100%; margin-left:1em; margin-right:1em; width:90px;background: url('./static/images/logo.png') no-repeat 50% 50%;background-size:contain; filter:invert(1);"></div>
     <my-theme style="height: 100%;">
       <hsc-menu-bar style="height: 100%; border-radius: 0 0 4pt 0">
-        <hsc-menu-bar-item label="Space" class="menu-item-wrapper">
-          <hsc-menu-item label="Load" @click="showSpaceDialog" />
+        <hsc-menu-bar-item label="Main" class="menu-item-wrapper">
+          <hsc-menu-item label="Load" />
           <hsc-menu-item label="Save" />
           <hsc-menu-separator />
           <hsc-menu-item label="Logout" />

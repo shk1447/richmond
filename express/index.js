@@ -2,35 +2,6 @@ const url = require('url');
 const http = require('http');
 const express = require('express');
 const WebSocket = require('ws');
-const LightJson = require('light-json')
-
-var data = require('./data');
-var stat = {
-  length: 'uint',
-  min: 'uint',
-  q1: 'uint',
-  median: 'uint',
-  q3: 'uint',
-  max: 'uint',
-  total: 'uint',
-  avg: 'float'
-}
-
-var schema = new LightJson({
-  data: [{
-    date: 'date',
-    stats: {
-      a: stat,
-      b: stat,
-      c: stat,
-      d: stat,
-      e: stat
-    }
-  }]
-})
-for (var i = 0; i < 1000; i++) {
-  data.data.push(data.data[0]);
-}
 
 var app = express();
 
@@ -54,17 +25,7 @@ wss.on('connection', function (ws, req) {
   ws.on('close', () => {
 
   });
-  if (test) {
-
-  }
-  for (var i = 0; i < 1000; i++) {
-    // ws.send(JSON.stringify(data));
-    var test = schema.binarify(data)
-    ws.send(test);
-  }
-  // for(var i = 0; i < 10000; i++) {
-
-  // }
+  
   console.log('connected');
 })
 

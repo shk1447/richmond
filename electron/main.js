@@ -31,7 +31,10 @@ function createWindow() {
     fullscreenable: true,
     resizable: true,
     frame: false,
-    show: false
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
   });
 
   mainWindow.loadURL('file://' + __dirname + '/dist/index.html');

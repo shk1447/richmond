@@ -8,34 +8,34 @@
       <div class="body-area">
         <!-- Content Area -->
         <v-content>
-          <golden-layout class="hscreen" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange" @tabCreated="handleTabCreated" @stackCreated="handleStackCreated">
+          <golden-layout class="hscreen" :hasHeaders="false" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange" @tabCreated="handleTabCreated" @stackCreated="handleStackCreated">
             <gl-col>
               <gl-row :height="70">
-                <gl-stack>
-                  <gl-component :closable="false" :reorderEnabled="false" title="Project">
-                    <tree-viewer />
-                  </gl-component>
-                </gl-stack>
-                <gl-stack :width="85">
-                  <gl-component :closable="false" :reorderEnabled="false" title="Flow">
-                    <flow-viewer />
-                  </gl-component>
-                  <gl-component title="Chart">
-                    <chart-viewer />
-                  </gl-component>
-                  <gl-component title="Map">
-                    <map-viewer />
-                  </gl-component>
-                </gl-stack>
+                <gl-component :closable="false" :reorderEnabled="false">
+                  <golden-layout class="hscreen" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange" @tabCreated="handleTabCreated" @stackCreated="handleStackCreated">
+                    <gl-stack>
+                      <gl-component :closable="false" :reorderEnabled="false" title="Chart">
+                        <chart-viewer />
+                      </gl-component>
+                      <gl-component title="Map">
+                        <map-viewer />
+                      </gl-component>
+                    </gl-stack>
+                  </golden-layout>
+                </gl-component>
               </gl-row>
-              <gl-stack>
-                <gl-component :closable="false" :reorderEnabled="false" title="Data">
-                  <data-viewer />
-                </gl-component>
-                <gl-component :closable="false" :reorderEnabled="false" title="Code">
-                  <code-viewer />
-                </gl-component>
-              </gl-stack>
+              <gl-component :closable="false" :reorderEnabled="false">
+                <golden-layout class="hscreen" :showPopoutIcon="false" @activeContentItemChanged="handleContentChange" @tabCreated="handleTabCreated" @stackCreated="handleStackCreated">
+                  <gl-stack>
+                    <gl-component :closable="false" :reorderEnabled="false" title="Terminal">
+                      <terminal-viewer />
+                    </gl-component>
+                    <gl-component :closable="false" :reorderEnabled="false" title="Code">
+                      <code-viewer />
+                    </gl-component>
+                  </gl-stack>
+                </golden-layout>
+              </gl-component>
             </gl-col>
           </golden-layout>
         </v-content>

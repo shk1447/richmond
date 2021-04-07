@@ -6,9 +6,9 @@ export default {
   message: '',
   dialog: {
     name: "",
-    show: true,
-    persistent: true,
-    compName: 'space-dialog',
+    show: false,
+    persistent: false,
+    compName: "",
     params: {},
   },
   file_info: {
