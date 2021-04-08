@@ -55,8 +55,9 @@ import '@/plugins/leaflet/L.Map.ScrollWheelZoom.js'
 import router from "./router";
 import App from "./App.vue";
 
-//import LWS from 'light-ws';
-LWS.connect('ws://localhost:8080/light', function (e) {
+import LWS from 'light-ws';
+console.log(LWS);
+LWS.connect('ws://localhost:8080/light.sock', function (e) {
   if (e.type == 'open') {
     console.log(e);
   }
