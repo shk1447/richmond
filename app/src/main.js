@@ -56,10 +56,12 @@ import router from "./router";
 import App from "./App.vue";
 
 import LWS from 'light-ws';
-console.log(LWS);
-LWS.connect('ws://localhost:8080/light.sock', function (e) {
+var ws = new LWS({ 'user': { id: 'string', name: 'string' } });
+ws.connect('ws://localhost:8080/light.sock', function (e) {
   if (e.type == 'open') {
-    console.log(e);
+    ws.on('user', function (data) {
+      console.log(data);
+    })
   }
 });
 
