@@ -55,8 +55,13 @@ import '@/plugins/leaflet/L.Map.ScrollWheelZoom.js'
 import router from "./router";
 import App from "./App.vue";
 
-import LJSON from 'light-json';
-console.log(new LJSON({id:'string'}).binarify({id:'test'}));
+//import LWS from 'light-ws';
+LWS.connect('ws://localhost:8080/light', function (e) {
+  if (e.type == 'open') {
+    console.log(e);
+  }
+});
+
 import common from "./common";
 Vue.prototype.$common = common;
 
