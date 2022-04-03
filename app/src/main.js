@@ -56,11 +56,13 @@ import router from "./router";
 import App from "./App.vue";
 
 import LWS from 'light-ws';
-var ws = new LWS({ 'user': { id: 'string', name: 'string' } });
+var ws = new LWS({ 'user': [{ id: 'string', name: 'string' }], 'user.add' : {id:'string', name:'string'} });
 ws.connect('ws://localhost:8080/light.sock', function (e) {
   if (e.type == 'open') {
-    ws.on('user', function (data) {
-      console.log(data);
+    ws.send('user', []);
+    ws.send('user.add', {id:'test', name:'test'});
+    ws.on('user', function (data, socket) {
+      console.log('userInfo', data);
     })
   }
 });

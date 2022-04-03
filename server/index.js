@@ -25,7 +25,7 @@ var pool = new ProcessPool({ processLimit: cpus.length });
 
 collector.getStockList().then((d) => {
     d.forEach((item) => {
-        var process_args = ['./stock_' + cmd.script + '.js', '--code', item.stock_code, '--stock_total', item.stock_total, '--stock_name', item.stock_name, '--days', cmd.days];
+        var process_args = ['./stock_' + cmd.script , '--code', item.stock_code, '--stock_total', item.stock_total, '--stock_name', item.stock_name, '--days', cmd.days];
         var process_opts = { cwd: path.resolve(__dirname, './process'), detached: true, stdio: 'ignore' };
         pool.prepare(process_args, process_opts)
     })

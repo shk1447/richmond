@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "collect": "node ./index.js --script collect --days 3",
+    "collect": "node ./index.js --script collect --days 400",
     "analysis": "node ./index.js --script analysis --days 12"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^7.2.0",
     "epipebomb": "^1.0.0",
     "http": "0.0.1-security",
     "leaflet-css": "^0.1.0",
